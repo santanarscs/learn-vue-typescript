@@ -1,9 +1,22 @@
 <template>
   <nav class="w-full text-white px-4 py-4 bg-gradient-to-r from-blue-800 to-blue-600">
-    <a>Learn Vue</a>
+    <router-link v-for="item of list" class="mx-2" :key="item.to" :to="item.to">{{item.title}}</router-link>
   </nav>
 </template>
 
 <script>
-export default {};
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  data() {
+    return{
+      list: [
+      { title: 'Home', to: '/'},
+      { title: 'Dc Heros', to: '/dc-heros'},
+      { title: 'Calendar', to: '/calendar'},
+      { title: 'Markdown', to: '/markdown'},
+    ]
+    }
+  }
+});
 </script>
