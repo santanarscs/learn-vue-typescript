@@ -30,44 +30,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 
 interface Hero {
   name: string;
 }
-interface Props {
-  newHero: string;
-  dcheros: Hero[];
-}
+
 export default defineComponent({
   name: "DcHeros",
+  setup() {
+    const newHero = ref<string>("");
+    const newHeroRef = ref();
+    const dcHeros = ref<Hero[]>([{ name: "Super man" }]);
+    onMounted(() => {
+      newHeroRef.value.focus();
+    });
 
-  data<Props>() {
-    return {
-      newHero: "",
-      dcHeros: [{ name: "Super man" }]
-    };
-  },
-  mounted() {
-    (this.$refs["newHeroRef"] as HTMLElement).focus();
-  },
-  computed: {
-    herosCount(): number {
-      return this.dcHeros.length;
-    }
-  },
-  methods: {
-    addHero(): void {
-      if (this.newHero !== "") {
-        this.dcHeros.push({ name: this.newHero });
+    const addHero = () => {
+      if (newHero.value !== "") {
+        dcHeros.value.push({ name: newHero.value });
       }
-      this.newHero = "";
-    },
-    remove(index: number): void {
-      this.dcHeros = this.dcHeros.filter(
+      newHero.value = "";
+    };
+    const remove = (index: number) => {
+      dcHeros.value = dcHeros.value.filter(
         (hero: Hero, i: number) => i !== index
       );
-    }
+    };
+
+    const herosCount = computed(() => dcHeros.value.length);
+
+    return { newHero, dcHeros, newHeroRef, herosCount, addHero, remove };
   }
 });
 </script>
