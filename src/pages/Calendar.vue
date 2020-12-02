@@ -40,7 +40,7 @@
 </template>
 
 <script language="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 export default defineComponent({
   name: "Calendar",
   data() {
@@ -48,7 +48,7 @@ export default defineComponent({
       currentDate: new Date().getUTCDate(),
       currentMonth: new Date().getMonth(),
       currentYear: new Date().getFullYear(),
-      days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     };
   },
   methods: {
