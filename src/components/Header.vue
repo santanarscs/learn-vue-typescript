@@ -9,14 +9,20 @@
       :to="item.to"
       >{{ item.title }}</router-link
     >
-    <button class="mx-2" @click="$emit('open-login-modal')">Login</button>
+    <button v-if="isLoggedIn" class="mx-2" @click="logout">Logout</button>
+    <button v-else class="mx-2" @click="$emit('open-login-modal')">
+      Login
+    </button>
   </nav>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
-
+import firebase from "../utils/firebase";
 export default defineComponent({
+  props: {
+    isLoggedIn: { type: Boolean, required: true }
+  },
   data() {
     return {
       list: [
@@ -27,6 +33,11 @@ export default defineComponent({
         { title: "Slider", to: "/slider" }
       ]
     };
+  },
+  methods: {
+    logout() {
+      firebase.auth().signOut();
+    }
   }
 });
 </script>
