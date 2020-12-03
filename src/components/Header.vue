@@ -32,7 +32,8 @@ export default defineComponent({
         { title: "Markdown", to: "/markdown" },
         { title: "Slider", to: "/slider" },
         { title: "Calculator", to: "/calculator" },
-        { title: "Modal", to: "/reusable-modal" }
+        { title: "Modal", to: "/reusable-modal" },
+        { title: "Chat", to: "/chat" }
       ]
     };
   },
