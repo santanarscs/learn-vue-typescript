@@ -18,20 +18,21 @@
 <script>
 import { defineComponent } from "vue";
 import marked from "marked";
-import debounce from "../utils/mixins/debounce";
-
+import useDebounce from "../utils/hooks/useDebounce";
 export default defineComponent({
   name: "Markdown",
-  mixins: [debounce],
-
-  mounted() {
-    this.$refs["markDownRef"].focus();
-  },
   data() {
     return {
-      text: ""
+      text: "",
+      debounce: ""
     };
   },
+  mounted() {
+    this.$refs["markDownRef"].focus();
+    const { debounce } = useDebounce();
+    this.deboune = debounce;
+  },
+
   computed: {
     markedText() {
       return marked(this.text);
@@ -41,10 +42,6 @@ export default defineComponent({
     update(e) {
       const task = () => (this.text = e.target.value);
       this.debounce(task, 500);
-    },
-    debounce(func, wait = 1000) {
-      clearTimeout(+this.timeout);
-      this.timeout = String(setTimeout(func, wait));
     }
   }
 });
